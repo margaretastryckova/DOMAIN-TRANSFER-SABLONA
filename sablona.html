@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patologická Anotácia WSI</title>
+    <meta name="description" content="Medicínska anotačná šablóna pre patológov - Case, Region a Cell Level analýza">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Main Application Container -->
+    <div id="app">
+        <!-- Header Toolbar -->
+        <header class="toolbar">
+            <div class="toolbar-left">
+                <h1 class="logo">WSI Anotácia</h1>
+            </div>
+            <div class="toolbar-center">
+                <button id="btnCaseLevel" class="btn btn-primary">
+                    Zvolenie organu
+                </button>
+                <button id="btnAnnotate" class="btn btn-secondary" disabled>
+                    Vyznačenie Regionu
+                </button>
+                <button id="btnCellAnnotate" class="btn btn-secondary" disabled>
+                    Vyznačenie Buniek
+                </button>
+                <button id="btnShowAll" class="btn btn-accent" disabled>
+                    Zobraziť Celú Anotáciu
+                </button>
+                <div id="liveScoreDisplay" class="live-score-display">
+                    <span class="live-score-label">Nottingham:</span>
+                    <span class="live-score-value">Neúplné skóre</span>
+                </div>
+            </div>
+            <div class="toolbar-right">
+            </div>
+        </header>
+
+        <!-- WSI Viewer Container -->
+        <div id="wsiContainer" class="wsi-container">
+            <canvas id="wsiCanvas"></canvas>
+            <div id="annotationLayer" class="annotation-layer"></div>
+
+            <!-- Zoom Controls -->
+            <div class="zoom-controls">
+                <button id="btnZoomIn" class="zoom-btn">+</button>
+                <span id="zoomLevel">100%</span>
+                <button id="btnZoomOut" class="zoom-btn">-</button>
+                <button id="btnReset" class="zoom-btn">↺</button>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- CASE LEVEL MODAL -->
+        <!-- ============================================ -->
+        <div id="caseLevelModal" class="modal">
+            <div class="modal-content case-level">
+                <div class="modal-header">
+                    <span class="level-badge case">CASE LEVEL</span>
+                    <button class="modal-close" data-close="caseLevelModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="organSelect">Vyberte Orgán:</label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" id="organSelect" class="autocomplete-input"
+                                placeholder="Začnite písať...">
+                            <div id="organDropdown" class="autocomplete-dropdown"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="systemDisplay">Systém:</label>
+                        <input type="text" id="systemDisplay" class="form-input readonly" readonly
+                            placeholder="Automaticky doplnené">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCaseSave" class="btn btn-success" disabled>
+                        Hotovo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- REGION LEVEL MODAL -->
+        <!-- ============================================ -->
+        <div id="regionLevelModal" class="modal">
+            <div class="modal-content region-level">
+                <div class="modal-header">
+                    <span class="level-badge region">REGION LEVEL</span>
+                    <span id="regionOrganLabel" class="organ-label"></span>
+                    <button class="modal-close" data-close="regionLevelModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Popis regiónu -->
+                    <div class="form-group">
+                        <label for="regionDescription">Popis regiónu:</label>
+                        <input type="text" id="regionDescription" class="form-input"
+                            placeholder="Napr. Oblasť s mitózami, Tubulárne formácie...">
+                    </div>
+
+                    <!-- Nottingham kategória -->
+                    <div class="form-group">
+                        <label for="regionCategory">Nottingham kategória:</label>
+                        <select id="regionCategory" class="form-input form-select">
+                            <option value="">Žiadna (všeobecný región)</option>
+                            <option value="tubular">Tubulárna diferenciácia</option>
+                            <option value="nuclear">Nukleárny pleomorfizmus</option>
+                            <option value="mitotic">Mitotický počet</option>
+                        </select>
+                    </div>
+
+                    <!-- Skóre (1-3) - podmienené -->
+                    <div id="regionScoreFields" class="conditional-fields hidden">
+                        <div class="form-divider">
+                            <span>Nottingham skóre</span>
+                        </div>
+                        <div class="form-group">
+                            <label id="regionScoreLabel">Skóre:</label>
+                            <div class="score-group">
+                                <label class="score-label">
+                                    <input type="radio" name="regionScore" value="1">
+                                    <span class="score-box">1</span>
+                                </label>
+                                <label class="score-label">
+                                    <input type="radio" name="regionScore" value="2">
+                                    <span class="score-box">2</span>
+                                </label>
+                                <label class="score-label">
+                                    <input type="radio" name="regionScore" value="3">
+                                    <span class="score-box">3</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Klinický komentár -->
+                    <div class="form-group">
+                        <label for="regionComment">Klinický komentár:</label>
+                        <textarea id="regionComment" class="form-textarea" rows="3"
+                            placeholder="Popis nálezov, poznámky..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnRegionSave" class="btn btn-success">
+                        Uložiť Region
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- CELL LEVEL MODAL -->
+        <!-- ============================================ -->
+        <div id="cellLevelModal" class="modal">
+            <div class="modal-content cell-level">
+                <div class="modal-header">
+                    <span class="level-badge cell">CELL LEVEL</span>
+                    <button class="modal-close" data-close="cellLevelModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Typ bunky -->
+                    <div class="form-group">
+                        <label for="cellTypeSelect">Typ bunky / štruktúry:</label>
+                        <select id="cellTypeSelect" class="form-input form-select">
+                            <option value="mitoza">Mitóza</option>
+                            <option value="jadierko">Jadierko (nukleárny pleomorfizmus)</option>
+                            <option value="tubularna">Tubulárna formácia</option>
+                            <option value="ine">Iné</option>
+                        </select>
+                    </div>
+
+                    <!-- Klinický komentár -->
+                    <div class="form-group">
+                        <label for="cellComment">Klinický komentár:</label>
+                        <textarea id="cellComment" class="form-textarea" rows="3"
+                            placeholder="Popis bunky, morfológia, poznámky..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer modal-footer-dual">
+                    <button id="btnCellSaveContinue" class="btn btn-secondary">
+                        Uložiť a pokračovať ➜
+                    </button>
+                    <button id="btnCellSave" class="btn btn-success">
+                        Uložiť
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- FULL ANNOTATION SUMMARY MODAL -->
+        <!-- ============================================ -->
+        <div id="summaryModal" class="modal">
+            <div class="modal-content summary-modal">
+                <div class="modal-header">
+                    <span class="level-badge summary">KOMPLETNÁ ANOTÁCIA</span>
+                    <button class="modal-close" data-close="summaryModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="summaryContent" class="summary-content">
+                        <!-- Dynamically filled -->
+                    </div>
+
+                    <!-- Klinický komentár -->
+                    <div class="form-group clinical-comment">
+                        <label for="clinicalComment">Klinický komentár:</label>
+                        <textarea id="clinicalComment" class="form-textarea" rows="4"
+                            placeholder="Pridajte klinický komentár alebo poznámky..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSave" class="btn btn-success">
+                        Uložiť
+                    </button>
+                    <button id="btnExport" class="btn btn-secondary">
+                        Exportovať
+                    </button>
+                    <button id="btnSummaryClose" class="btn btn-secondary">
+                        Zavrieť
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Annotation instruction overlay -->
+        <div id="annotationOverlay" class="annotation-overlay hidden">
+            <div class="annotation-instruction">
+                Nakreslite obdĺžnik pre: <span id="annotationModeLabel" style="font-weight: 600; color: #fff;"></span>
+                <br><small>Kliknite a ťahajte myšou</small>
+            </div>
+            <button id="btnCancelAnnotation" class="btn btn-sm btn-danger"
+                style="margin-top: 10px; pointer-events: auto;">
+                Zrušiť anotáciu
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

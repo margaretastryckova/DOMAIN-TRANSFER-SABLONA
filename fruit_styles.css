@@ -1,0 +1,750 @@
+/* ============================================
+   FRUIT ANNOTATION TOOL - ADDITIONAL STYLES
+   Extends the base styles.css design system
+   ============================================ */
+
+/* ============================================
+   TOOLBAR OVERRIDES FOR FRUIT TOOL
+   ============================================ */
+.fruit-toolbar {
+    padding: 10px 20px;
+    gap: 0;
+    flex-wrap: nowrap;
+    min-height: 58px;
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.logo-block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.logo-icon {
+    font-size: 1.25rem;
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--border-color);
+    flex-shrink: 0;
+}
+
+.toolbar-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   NAVIGATION GROUPS (Phase + Image buttons)
+   ============================================ */
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-group-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin-right: 2px;
+}
+
+/* Phase buttons */
+.btn-phase {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 5px 14px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.btn-phase:hover {
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border-color: var(--primary);
+}
+
+.btn-phase.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.35);
+}
+
+/* Image number buttons */
+.btn-imgnum {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    padding: 0;
+}
+
+.btn-imgnum:hover {
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border-color: var(--accent);
+}
+
+.btn-imgnum.active {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+/* Annotate Button */
+.btn-annotate {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border: none;
+    padding: 7px 18px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.btn-annotate:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.4);
+}
+
+.btn-annotate.annotating-active {
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    box-shadow: 0 0 14px rgba(239, 68, 68, 0.4);
+    animation: pulseBorder 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseBorder {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 22px rgba(239, 68, 68, 0.6);
+    }
+}
+
+.btn-icon {
+    font-size: 1rem;
+}
+
+/* Annotation counter */
+.annotation-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+#counterNum {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* Zoom controls in header */
+.zoom-controls-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+.zoom-controls-header .zoom-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1.1rem;
+}
+
+.zoom-controls-header #zoomLevel {
+    min-width: 46px;
+    font-size: 0.8125rem;
+}
+
+/* ============================================
+   TASK INSTRUCTION BANNER
+   ============================================ */
+.task-instruction {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);
+    border-bottom: 1px solid rgba(37, 99, 235, 0.25);
+    padding: 10px 24px;
+    flex-shrink: 0;
+    transition: all var(--transition-normal);
+}
+
+.task-instruction-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    max-width: 1400px;
+}
+
+.task-phase-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 12px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+#taskInstructionText {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+#taskInstructionText strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   MAIN CONTENT LAYOUT
+   ============================================ */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ============================================
+   IMAGE CONTAINER / CANVAS
+   ============================================ */
+.image-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #111827;
+    cursor: grab;
+    transition: all var(--transition-normal);
+}
+
+.image-container:active {
+    cursor: grabbing;
+}
+
+.image-container.annotating {
+    cursor: crosshair !important;
+}
+
+.image-container.panel-open {
+    /* panel takes 420px on the right */
+}
+
+#mainCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Drawing canvas sits on top */
+.drawing-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.drawing-canvas.active {
+    pointer-events: auto;
+}
+
+/* Annotation layer */
+.annotation-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Bounding box overlays */
+.annotation-layer .fruit-box {
+    position: absolute;
+    border: 2.5px solid;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border-radius: 2px;
+}
+
+.annotation-layer .fruit-box:hover {
+    filter: brightness(1.3);
+}
+
+.annotation-layer .fruit-box.selected {
+    box-shadow: 0 0 0 2px white, 0 0 16px rgba(255, 255, 255, 0.3);
+}
+
+.annotation-layer .fruit-box-label {
+    position: absolute;
+    top: -26px;
+    left: -2px;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: white;
+    border-radius: 3px 3px 3px 0;
+    white-space: nowrap;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+/* No image placeholder */
+.no-image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    gap: 10px;
+    background: #111827;
+}
+
+.no-image-placeholder.hidden {
+    display: none;
+}
+
+.no-image-icon {
+    font-size: 3rem;
+    opacity: 0.4;
+}
+
+.no-image-placeholder p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.no-image-placeholder small {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   RIGHT ANNOTATION PANEL
+   ============================================ */
+.annotation-panel {
+    width: 300px;
+    flex-shrink: 0;
+    background: var(--bg-main);
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 50;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.3);
+}
+
+.annotation-panel.active {
+    transform: translateX(0);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-dark);
+    flex-shrink: 0;
+}
+
+.panel-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.panel-badge {
+    padding: 4px 12px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: var(--radius-sm);
+}
+
+.panel-close {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    line-height: 1;
+}
+
+.panel-close:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.panel-annotation-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.annotation-color-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.panel-textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: -8px;
+}
+
+.panel-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+    background: var(--bg-dark);
+}
+
+/* ============================================
+   DRAWING HINT (bottom center)
+   ============================================ */
+.drawing-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 20px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+    backdrop-filter: blur(10px);
+    z-index: 200;
+    pointer-events: auto;
+    animation: hintSlideUp 0.25s ease-out;
+}
+
+.drawing-hint.hidden {
+    display: none;
+}
+
+@keyframes hintSlideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ============================================
+   ANNOTATION BOX COLORS (cycling palette)
+   ============================================ */
+:root {
+    --ann-color-0: #f59e0b;
+    --ann-color-1: #3b82f6;
+    --ann-color-2: #10b981;
+    --ann-color-3: #ef4444;
+    --ann-color-4: #8b5cf6;
+    --ann-color-5: #ec4899;
+    --ann-color-6: #06b6d4;
+    --ann-color-7: #84cc16;
+}
+
+/* ============================================
+   FORM GROUP OVERRIDE  (no extra top margin in panel)
+   ============================================ */
+.panel-body .form-group {
+    margin-bottom: 0;
+}
+
+.panel-body .form-group label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+/* ============================================
+   PHASE 3 TEMPLATE STYLES
+   ============================================ */
+
+/* Wider panel for Phase 3 content */
+.annotation-panel.phase3-active {
+    width: 360px;
+}
+
+.p3-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Each step block */
+.p3-step {
+    padding: 12px 0 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.p3-step:last-child {
+    border-bottom: none;
+}
+
+.p3-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+/* Type buttons (Ovocie / Plocha) */
+.p3-type-row {
+    display: flex;
+    gap: 8px;
+}
+
+.p3-type-btn {
+    flex: 1;
+    padding: 10px 8px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: center;
+}
+
+.p3-type-btn:hover {
+    border-color: var(--primary);
+    color: var(--text-primary);
+}
+
+.p3-type-btn.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.35);
+}
+
+/* Chip pills row */
+.p3-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.p3-chip {
+    padding: 5px 12px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 20px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.p3-chip:hover {
+    border-color: var(--accent);
+    color: var(--text-primary);
+}
+
+.p3-chip.active {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.35);
+}
+
+/* Bunch sub-options */
+.p3-bunch-sub {
+    padding: 6px 0 0 8px;
+    border-left: 2px solid var(--accent);
+    margin-top: 2px;
+}
+
+/* Combobox */
+.p3-combobox {
+    position: relative;
+}
+
+.p3-search {
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--bg-input);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color var(--transition-fast);
+}
+
+.p3-search:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.p3-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 200;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.p3-option {
+    padding: 8px 14px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.p3-option:hover,
+.p3-option.selected {
+    background: rgba(37, 99, 235, 0.15);
+    color: var(--text-primary);
+}

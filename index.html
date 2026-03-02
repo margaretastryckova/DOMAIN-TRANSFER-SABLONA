@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Transfer – Testovanie Anotácie Ovocia</title>
+    <meta name="description"
+        content="Testovanie anotačného workflow – porovnanie troch fáz anotácie ovocia na policiach">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fruit_styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- ============================================ -->
+        <!-- HEADER TOOLBAR                              -->
+        <!-- ============================================ -->
+        <header class="toolbar fruit-toolbar">
+            <div class="toolbar-left">
+
+                <!-- Divider -->
+                <div class="toolbar-divider"></div>
+
+                <!-- Phase Navigation -->
+                <div class="nav-group">
+                    <span class="nav-group-label">Fáza</span>
+                    <button id="btnPhase1" class="btn btn-phase active" data-phase="1">Fáza 1</button>
+                    <button id="btnPhase2" class="btn btn-phase" data-phase="2">Fáza 2</button>
+                    <button id="btnPhase3" class="btn btn-phase" data-phase="3">Fáza 3</button>
+                </div>
+
+                <!-- Divider -->
+                <div class="toolbar-divider"></div>
+
+                <!-- Image Navigation -->
+                <div class="nav-group">
+                    <span class="nav-group-label">Obrázok</span>
+                    <button id="btnImg1" class="btn btn-imgnum active" data-img="1">1</button>
+                    <button id="btnImg2" class="btn btn-imgnum" data-img="2">2</button>
+                    <button id="btnImg3" class="btn btn-imgnum" data-img="3">3</button>
+                </div>
+            </div>
+
+            <div class="toolbar-center">
+                <!-- Annotate Button -->
+                <button id="btnAnnotate" class="btn btn-annotate">
+                    <span class="btn-icon">✏️</span>
+                    Označiť objekt
+                </button>
+
+                <!-- Annotation counter removed -->
+            </div>
+
+            <div class="toolbar-right">
+                <!-- Zoom controls moved here for cleaner layout -->
+                <div class="zoom-controls-header">
+                    <button id="btnZoomOut" class="zoom-btn">−</button>
+                    <span id="zoomLevel">100%</span>
+                    <button id="btnZoomIn" class="zoom-btn">+</button>
+                    <button id="btnReset" class="zoom-btn" title="Reset zoom">↺</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============================================ -->
+        <!-- TASK INSTRUCTION BANNER                    -->
+        <!-- ============================================ -->
+        <div id="taskInstruction" class="task-instruction">
+            <div class="task-instruction-inner">
+                <span class="task-phase-badge" id="taskPhaseBadge">Fáza 1</span>
+                <p id="taskInstructionText">
+                    Pred vami je obrázok a vašou úlohou je <strong>vyznačiť všetky objekty</strong> a do textového poľa
+                    ich čo najdetailnejšie
+                    opísať vlastnými slovami tak, aby si to vedelo presne predstaviť aj malé dieťa, ktoré daný obrázok
+                    nevidelo.
+                    Zamerajte sa na všetky dôležité vlastnosti, ktoré daný objekt má.
+                </p>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- MAIN CONTENT AREA                          -->
+        <!-- ============================================ -->
+        <div class="main-content">
+
+            <!-- Image/Canvas Viewer -->
+            <div id="imageContainer" class="image-container">
+                <canvas id="mainCanvas"></canvas>
+                <div id="annotationLayer" class="annotation-layer"></div>
+
+                <!-- Drawing overlay (active while drawing rectangle) -->
+                <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+
+                <!-- No image placeholder -->
+                <div id="noImagePlaceholder" class="no-image-placeholder hidden">
+                    <div class="no-image-icon">🖼️</div>
+                    <p>Obrázok nie je dostupný</p>
+                    <small>Pridajte súbor do priečinka projektu</small>
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- RIGHT ANNOTATION PANEL                     -->
+            <!-- ============================================ -->
+            <div id="annotationPanel" class="annotation-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="panel-badge" id="panelBadge">Anotácia #1</span>
+                    </div>
+                    <button id="btnPanelClose" class="panel-close" title="Zavrieť panel">×</button>
+                </div>
+
+                <div class="panel-body">
+                    <!-- Text description -->
+                    <div class="form-group">
+                        <label for="annotationText">Popis objektu:</label>
+                        <textarea id="annotationText" class="form-textarea panel-textarea" rows="4"
+                            placeholder="Zadajte text..."></textarea>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <button id="btnDeleteAnnotation" class="btn btn-danger btn-sm">
+                        🗑 Odstrániť
+                    </button>
+                    <button id="btnSaveAnnotation" class="btn btn-success">
+                        ✓ Uložiť
+                    </button>
+                </div>
+            </div>
+
+        </div><!-- end .main-content -->
+
+        <!-- ============================================ -->
+        <!-- ANNOTATING MODE OVERLAY HINT               -->
+        <!-- ============================================ -->
+        <div id="drawingHint" class="drawing-hint hidden">
+            <span>Nakreslite obdĺžnik okolo ovocia — kliknite a ťahajte myšou</span>
+            <button id="btnCancelDraw" class="btn btn-sm btn-danger">Zrušiť</button>
+        </div>
+
+    </div><!-- end #app -->
+
+    <script src="phase3.js"></script>
+    <script src="fruit_app.js"></script>
+</body>
+
+</html>
