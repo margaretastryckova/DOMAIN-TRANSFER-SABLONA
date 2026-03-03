@@ -31,9 +31,9 @@
                     <button id="btnPhase2" class="btn btn-phase" data-phase="2">Fáza 2</button>
                     <button id="btnPhase3" class="btn btn-phase" data-phase="3">Fáza 3</button>
                 </div>
+            </div>
 
-                <!-- Divider -->
-                <div class="toolbar-divider"></div>
+            <div class="toolbar-right">
 
                 <!-- Image Navigation -->
                 <div class="nav-group">
@@ -42,20 +42,17 @@
                     <button id="btnImg2" class="btn btn-imgnum" data-img="2">2</button>
                     <button id="btnImg3" class="btn btn-imgnum" data-img="3">3</button>
                 </div>
-            </div>
 
-            <div class="toolbar-center">
                 <!-- Annotate Button -->
                 <button id="btnAnnotate" class="btn btn-annotate">
                     <span class="btn-icon">✏️</span>
                     Označiť objekt
                 </button>
 
-                <!-- Annotation counter removed -->
-            </div>
+                <!-- Divider -->
+                <div class="toolbar-divider"></div>
 
-            <div class="toolbar-right">
-                <!-- Zoom controls moved here for cleaner layout -->
+                <!-- Zoom controls -->
                 <div class="zoom-controls-header">
                     <button id="btnZoomOut" class="zoom-btn">−</button>
                     <span id="zoomLevel">100%</span>
@@ -64,6 +61,7 @@
                 </div>
             </div>
         </header>
+
 
         <!-- ============================================ -->
         <!-- TASK INSTRUCTION BANNER                    -->
@@ -145,6 +143,7 @@
     </div><!-- end #app -->
 
     <script src="phase3.js"></script>
+    <script src="logger.js"></script>
     <script src="fruit_app.js"></script>
 </body>
 

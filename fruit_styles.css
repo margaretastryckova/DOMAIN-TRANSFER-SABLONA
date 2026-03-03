@@ -11,6 +11,7 @@
     gap: 0;
     flex-wrap: nowrap;
     min-height: 58px;
+    justify-content: space-between;
 }
 
 .toolbar-left {

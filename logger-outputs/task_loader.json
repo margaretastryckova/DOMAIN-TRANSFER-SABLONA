@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Fáza 1 - Voľný text",
+    "description": "Opíš ovocie vlastnými slovami",
+    "maxTime": 600
+  },
+  {
+    "id": 2,
+    "name": "Fáza 2 - Word manuál",
+    "description": "Opíš ovocie pomocou papierového zoznamu",
+    "maxTime": 600
+  },
+  {
+    "id": 3,
+    "name": "Fáza 3 - Digitálna šablóna",
+    "description": "Použi digitálny systém na anotáciu",
+    "maxTime": 600
+  }
+]

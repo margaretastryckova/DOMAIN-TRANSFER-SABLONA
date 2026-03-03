@@ -11,28 +11,26 @@
 
 const PHASE_IMAGES = {
     1: {
-        1: '1.1.jpg',
-        2: '1.2..jpg',
-        3: '1.3...jpg',
+        1: 'obrazky/1.1.jpg',
+        2: 'obrazky/1.2..jpg',
+        3: 'obrazky/1.3...jpg',
     },
     2: {
-        1: '2.1.jpg',
-        2: '2.2...jpg',
-        3: '2.3.jpg',
+        1: 'obrazky/2.1.jpg',
+        2: 'obrazky/2.2...jpg',
+        3: 'obrazky/2.3.jpg',
     },
     3: {
-        1: '3.1.jpg',
-        2: '3.2.jpg',
-        3: '3.3.jpg',
+        1: 'obrazky/3.1.jpg',
+        2: 'obrazky/3.2.jpg',
+        3: 'obrazky/3.3.jpg',
     },
 };
 
 const PHASE_INSTRUCTIONS = {
-    1: `Pred vami je obrázok a vašou úlohou je vyznačiť všetky objekty a do textového poľa
-        ich čo najdetailnejšie opísať vlastnými slovami tak, aby si to vedelo presne predstaviť aj malé dieťa, ktoré daný obrázok nevidelo.
-        Zamerajte sa na všetky dôležité vlastnosti, ktoré daný objekt má.`,
-    2: `Vyznačte objekt na obrázku a do textového poľa vypíšte jeho vlastnosti, ktoré musíte manuálne vyhľadať v priloženom Word protokole.`,
-    3: `Vyznačte objekt a vyplňte digitálnu šablónu, ktorá sa po výbere druhu ovocia automaticky prispôsobí a ponúkne vám konkrétne možnosti na zakliknutie.`,
+    1: `Pred vami je obrázok. Vašou úlohou je vyznačiť všetko, čo na ňom vidíte, a odovzdať o ňom kompletnú informáciu. Opíšte obrázok čo najdetailnejšie – tak, aby si ho váš kolega, ktorý ho nevidí, dokázal úplne presne predstaviť. Zamerajte sa na všetky dôležité vlastnosti, ktoré daný objekt má.`,
+    2: `Pred vami je obrázok. Vašou úlohou je vyznačiť a opísať tento obrázok čo najdetailnejšie, pričom na presný popis použite priložený Word protokol.`,
+    3: `Vyznačte objekty na obrázku a opíšte ich vyplnením digitálnej šablóny priamo v tomto nástroji.`,
 };
 
 const PHASE_BADGE_COLORS = {
@@ -304,6 +302,7 @@ function renderAnnotationBoxes() {
 // ============================================================
 
 function switchPhase(phase) {
+    if (window.UXLogger) window.UXLogger.logEvent('PHASE_CHANGED', { phase: phase });
     if (phase === state.currentPhase) return;
     closePanel();
     state.currentPhase = phase;
@@ -313,6 +312,7 @@ function switchPhase(phase) {
 }
 
 function switchImage(imgNum) {
+    if (window.UXLogger) window.UXLogger.logEvent('IMAGE_CHANGED', { imageId: imgNum, phase: state.currentPhase });
     if (imgNum === state.currentImage) return;
     closePanel();
     state.currentImage = imgNum;
@@ -412,6 +412,7 @@ function saveCurrentAnnotation() {
     }
 
     renderAnnotationBoxes();
+    if (window.UXLogger) window.UXLogger.logEvent('ANNOTATION_SAVED', { phase: state.currentPhase, image: state.currentImage });
     closePanel();
 }
 
@@ -487,6 +488,7 @@ el.imageContainer.addEventListener('mousedown', (e) => {
     if (state.isAnnotating) {
         state.isDrawing = true;
         state.drawStart = pt;
+        if (window.UXLogger) window.UXLogger.logEvent('DRAWING_STARTED', { phase: state.currentPhase, image: state.currentImage });
     } else {
         // Pan start
         state.isPanning = true;
@@ -733,6 +735,11 @@ document.addEventListener('keydown', (e) => {
         if (state.selectedAnnotationId !== null) {
             saveCurrentAnnotation();
         }
+    }
+
+    if (e.key === 'l' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        if (window.UXLogger) window.UXLogger.exportJSON();
     }
 });
 

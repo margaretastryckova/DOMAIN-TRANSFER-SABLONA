@@ -55,7 +55,7 @@
     panel.id = 'logger-panel'
     panel.style.position = 'fixed'
     panel.style.bottom = '10px'
-    panel.style.right = '10px'
+    panel.style.left = '10px'
     panel.style.backgroundColor = '#222'
     panel.style.color = '#fff'
     panel.style.border = '1px solid #555'
@@ -425,11 +425,11 @@
       <p style="margin-bottom: 12px; white-space: nowrap;">Choose a number from 1 (easy) to 7 (difficult)</p>
       <div id="difficulty-buttons" style="display: flex; justify-content: center; gap: 6px;">
         ${[1, 2, 3, 4, 5, 6, 7]
-          .map(
-            (n) =>
-              `<button style="padding: 12px 16px; border-radius: 6px; border: 1px solid #777; background: #555; color: #fff; cursor: pointer; font-weight: bold;" data-val="${n}">${n}</button>`
-          )
-          .join('')}
+        .map(
+          (n) =>
+            `<button style="padding: 12px 16px; border-radius: 6px; border: 1px solid #777; background: #555; color: #fff; cursor: pointer; font-weight: bold;" data-val="${n}">${n}</button>`
+        )
+        .join('')}
       </div>
     `
 
@@ -625,4 +625,33 @@
       initializeUI()
     }
   })
+
+  window.UXLogger = {
+    logEvent: function (name, data) {
+      if (typeof currentLog !== 'undefined') {
+        currentLog.push({
+          type: 'CUSTOM_UX_EVENT',
+          event: name,
+          data: data,
+          time: new Date().toISOString(),
+          url: window.location.href
+        });
+        // Zabezpečí, aby sa logy uložili aj pri páde prehliadača
+        const state = JSON.parse(localStorage.getItem('logger_state') || '{}');
+        state.currentLog = currentLog;
+        localStorage.setItem('logger_state', JSON.stringify(state));
+      }
+    },
+    exportJSON: function () {
+      const state = JSON.parse(localStorage.getItem('logger_state') || '{}');
+      // Tento riadok spojí všetky tvoje testy do jedného prehľadného súboru
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.allLogs || [state.currentLog]));
+      const downloadAnchorNode = document.createElement('a');
+      downloadAnchorNode.setAttribute("href", dataStr);
+      downloadAnchorNode.setAttribute("download", "finalny_ux_log.json");
+      document.body.appendChild(downloadAnchorNode);
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+    }
+  };
 })()
